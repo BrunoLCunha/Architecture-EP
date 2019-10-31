@@ -1,0 +1,379 @@
+% bibliografia em outras línguas: http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\documentclass[12pt,a4paper,utf8]{ppgsi}
+\hyphenation{por-me-no-ri-za-da}
+
+\newcommand{\BibTeX}{{\sc Bib}\TeX} % Apenas para escrever o logo do BibTeX
+
+\usepackage{url}
+
+\title{Modelo para Relatórios Técnicos da PPgSI-EACH-USP}
+
+
+% \listfiles % ver os arquivos carregados.
+
+\coverauthor{Norton Trevisan Roman}
+
+\author{Norton Trevisan Roman\inst{1}}
+
+\address{Escola de Artes, Ciências e Humanidades -- Universidade de São Paulo\\
+  São Paulo -- SP, Brazil
+  \email{norton@usp.br}
+}
+
+\numero{000/2012}
+\mes{05}
+\ano{2012}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Este documento apresenta as instruções básicas para criação de Relatórios Técnicos da PPgSI-EACH-USP, usando \LaTeXe. Última atualização: 12/02/2013.
+\end{abstract}
+
+\section{Introdução}
+
+	Embora não contem para a Capes como uma publicação oficial (principalmente por não terem sido avaliados por outros pesquisadores da área), relatórios técnicos apresentam algumas vantagens, como, por exemplo:
+
+	\begin{itemize}
+		\item Possibilitam a criação de um veículo interno para publicações prévias de trabalhos, ajudando a estabelecer uma cultura de publicação de resultados entre os alunos, tanto da graduação quanto da pós-graduação;
+		\item Por não conterem limite no número de páginas, permitem a descrição pormenorizada de implementações, experimentos e demais trabalhos, podendo servir de base para futuras publicações em periódicos e conferências;
+		\item Servem como indicador indireto da produção tecnico-científica da PPgSI-EACH, haja vista o longo prazo de aceitação de muitos periódicos.
+	\end{itemize}
+
+	Assim, com o intuito de padronizar documentos produzidos na forma de Relatórios Técnicos, o presente documento tem como objetivo fornecer um modelo para sua publica-ção dentro da PPgSI-EACH. No que segue, serão apresentados os passos necessários para escrita de um relatório em \LaTeXe, linguagem de formatação de textos escolhida por ser bastante estável (ou seja, uma vez o texto escrito, sua forma não tende a mudar com novas versões do software usado para escrita). Para maiores informações sobre o \LaTeXe{} consulte~\citep{lamport1994,Mittelbach2004}.
+
+
+\section{Documentos Envolvidos}
+
+	Antes de começar a escrever o relatório, certifique-se de que os seguintes arquivos estão no mesmo diretório do seu documento:
+
+	\begin{itemize}
+		\item ppgsi.cls: Classe \LaTeXe{} que define o formato usado no Relatório Técnico;
+		\item logo-each.eps: Logo da EACH, para documentos que usam apenas imagens eps (Seção~\ref{sec:figuras});
+		\item logo-each.png: Logo da EACH, para documentos que usam formatos de imagem como jpeg, png ou gif (Seção~\ref{sec:figuras}).
+	\end{itemize}
+	
+	\noindent e que você tenha os seguintes pacotes \LaTeX{} instalados\footnote{Para saber mais sobre eles consulte \url{http://www.ctan.org} .} (estes já devem vir como padrão na instalação \LaTeX):
+	
+	\begin{itemize}
+		\item inputenc: Para as diferentes codificações de caracteres (Seção~\ref{sec:charset});
+		\item babel: Para as diferentes regras de hifenização e títulos de seção, conforme a língua escolhida (Seção~\ref{sec:lingua});
+		\item float: Para o uso de 'H' no posicionamento das figuras;
+		\item indentfirst: Para edentação automática do primeiro parágrafo;
+		\item geometry: Para alterações nas dimensões do documento;
+		\item times: Para fontes da família ``Adobe Times Roman'';
+		\item graphicx: Para inclusão de figuras;
+		\item natbib: Para diversos formatos de citação no texto.
+	\end{itemize}
+
+
+\section{Editando em \LaTeX}
+
+	A despeito de alguns editores do tipo WYSIWYG\footnote{What you see is what you get.} para \LaTeX{} (como o Bakoma\footnote{http://www.bakoma-tex.com/}, por exemplo, que está disponível tanto para Linux quanto para Windows), muito em \LaTeX{} deve ainda ser editado de forma manual. Editores alternativos são o Kile\footnote{http://kile.sourceforge.net/}, para Linux, ou o TeXnicCenter\footnote{http://www.texniccenter.org/}, para Windows. Para uma lista completa de editores consulte ``http://www.tex-br.org/index.php/Página\_principal\#Editores''.
+
+\section{Começando o Documento}
+\label{sec:comeco}
+
+	A primeira linha do documento deve conter o comando
+
+	\verb|\documentclass[opções]{ppgsi}|
+
+	\noindent onde \textit{opções} representa a lista de opções para o relatório, podendo ser:
+
+	\begin{itemize}
+		\item \textit{10pt}, \textit{12pt}, \textit{14pt} etc: tamanho da fonte. É recomendado usar 12pt. Não há especificação padrão para essa opção, sendo herdada da classe article, na qual ppgsi.cls se baseia;
+		\item \textit{a4paper}, \textit{letterpaper} etc: tipo de papel. É recomendado usar a4paper. Não há especificação padrão para essa opção, sendo herdada da classe article, na qual ppgsi.cls se baseia;
+		\item \textit{latin1} ou \textit{utf8}: indica a codificação de caracteres usada (utf8, se não especificada);
+		\item \textit{brazilian} ou \textit{english}: língua usada no documento (brazilian, se não especificada). O uso de ``english'' fará com que a capa, bem como o título das referências bibliográficas, resumo e apêndices sejam traduzidas automaticamente para o inglês;
+		\item \textit{eps} ou \textit{outros}: tipo de figuras usadas no documento (eps, se não especificada). Para entender melhor essa opção, consulte a Seção~\ref{sec:figuras}.
+	\end{itemize}
+
+
+	Por exemplo, o presente documento tem como cabeçalho (note que tanto a linguagem usada quanto o tipo de figura são os padrões, ou seja, português do Brasil e eps):
+
+	\verb|\documentclass[12pt,a4paper,utf8]{ppgsi}|
+
+	Em seguida, você deve escrever o título do Relatório Técnico:
+
+	\verb|\title{Modelo para Relatórios Técnicos da PPgSI-EACH-USP}|
+
+	Se, contudo, o título do relatório for muito grande, você pode separá-lo em mais de uma linha:
+
+	\begin{verbatim}
+	   \title{Modelo para Relatórios Técnicos da \\
+	   PPgSI-EACH-USP \\
+	   Uma Versão Preliminar}
+	\end{verbatim}
+
+	Logo abaixo, você deve citar os autores do documento, conforme aparecerão na capa do relatório:
+
+	\verb|\coverauthor{Nome do Autor}|
+
+	Caso o documento tenha mais de um autor, eles devem ser apresentados da seguinte forma:
+
+	\begin{verbatim}
+	   \coverauthor{Nome do Autor 1\\Nome do Autor 2\\
+	   Nome do Autor 3}
+	\end{verbatim}
+
+
+	\noindent até o limite de quatro autores. Por razões estéticas, os demais autores devem ser apresentados em uma seção adicional intitulada ``Demais Autores'', logo antes da bibliografia (consulte o~\ref{ap:exemplo} para um exemplo de documento completo).
+
+	Uma vez citados os autores como aparecem na capa do relatório, deve-se definir como aperecerão no corpo do relatório, assim como sua filiação e endereço eletrônico:
+
+	\begin{verbatim}
+	   \author{Autor 1\inst{1}
+	      \and Autor 2\inst{2}
+	      \and Autor 3\inst{3}}
+	   \address{Escola de Artes, Ciências e Humanidades --
+	      Universidade de São Paulo\\
+	      São Paulo -- SP, Brazil
+	      \email{norton@usp.br}
+	      \nextinstitute
+	      Centro de Pesquisas CP -- Universidade de Lá\\
+	      Lá, Brasil
+	      \email{autor2@email.com}
+	      \nextinstitute
+	      Centro de Pesquisas CP -- Universidade de Cá\\
+	      Cá, Brasil
+	      \email{autor3@email.com}
+	   }
+	\end{verbatim}
+
+	Neste caso, \verb|\inst{}| faz a ligação entre o nome do autor e a instituição à qual pertence. Em seguida, definimos o número do relatório técnico, que deve ser obtido junto ao responsável pela sua distribuição:
+
+	\verb|\numero{000/2010}|
+
+	\noindent bem como o mês e ano de sua publicação:
+
+	\begin{verbatim}
+	   \mes{08}
+	   \ano{2010}
+	\end{verbatim}
+
+	Finalmente, iniciamos o documento, podendo então prosseguir com a escrita do resumos e seções subseqüentes:
+
+	\begin{verbatim}
+	   \begin{document}
+	   \maketitle
+	\end{verbatim}
+
+
+\section{Conjunto de Caracteres}
+\label{sec:charset}
+
+	Usuários Windows não possuem muita escolha, seu conjunto de caracteres é Latin-1 (ou ISO 8859-1). Usuários Linux, contudo, possuem duas escolhas -- UTF-8 ou Latin-1\footnote{De fato possuem mais opções, mas essas são as mais comuns.}. Cabe a você descobrir qual o conjunto mais apropriado ao seu sistema. De posse dessa informação, basta inserir o \textit{charset} apropriado na definição de \verb|\documentclass|, conforme visto na Seção~\ref{sec:comeco}.
+
+	Esse valor é, então, automaticamente passado para o pacote \verb|inputenc|, dentro de \verb|ppgsi.cls|, evitando assim a necessidade de inclusão explícita do pacote pelo autor. Por padrão, UTF-8 é escolhida, ou seja, se esse parâmetro for omitido, essa será a codificação assumida pelo sistema.
+
+
+\section{Língua}
+\label{sec:lingua}
+
+	Outro incômodo bastante recorrente para quem faz uso de \LaTeX{} diz respeito à língua usada no documento. Em geral, chama-se o pacote \verb|babel|, passando a língua desejada como parâmetro. Felizmente, \verb|ppgsi.cls| também automatiza isso, bastando que você inclua a opção desejada (\verb|brazilian| ou \verb|english|) diretamente na definição de \verb|\documentclass| (Seção~\ref{sec:comeco}), sendo \verb|brazilian| a opção padrão. Os efeitos da troca de língua podem ser vistos na capa do documento e no título de algumas seções, como ``Resumo'' e ``Bibliografia'', por exemplo.
+
+	Por fim, vale também lembrar que quando se troca a língua do documento após já tê-lo começado, o \LaTeX{} vai reclamar, dando a mensagem ``Package babel Error: You haven't defined the language brazilian yet''. Para resolver esse problema, basta rodar o \LaTeX{} novamente.
+
+
+\section{Figuras}
+\label{sec:figuras}
+
+	Quando se edita em \LaTeXe{}, tem-se duas opções de figuras: imagens em postscript (.eps) ou em outros formatos mais comuns, como (jpeg, gif e png). Dependendo de sua escolha, ou deve-se rodar o interpretador ``latex'' (para eps) ou ``pdflatex'' (para as demais). Dentro de \verb|ppgsi.cls|, essa escolha afeta a imagem carregada para o logo da EACH, sendo eps a opção padrão. Uma vez definido o tipo de figura, você pode inseri-las normalmente, como em
+
+	\begin{verbatim}
+		\begin{figure}[H]
+		   \centering
+		   \includegraphics[width=5cm]{logo-USP.eps}
+		   \caption{Logotipo da USP.}
+		   \label{Fig:taxonomia}
+		\end{figure}
+	\end{verbatim}
+
+	\noindent ou
+
+	\begin{verbatim}
+		\begin{figure}[H]
+		   \centering
+		   \includegraphics[width=5cm]{logo-USP.jpg}
+		   \caption{Logotipo da USP.}
+		   \label{Fig:taxonomia}
+		\end{figure}
+	\end{verbatim}
+
+	\noindent sem a necessidade de fazer uma inclusão explícita do pacote \verb|graphicx|, que já é incluído automaticamente por \verb|ppgsi.cls|. Nesse caso, o resultado é:
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=5cm]{logo-USP.eps}
+		\caption{Logotipo da USP.}
+		\label{Fig:taxonomia}
+	\end{figure}
+
+	Com relação à diagramação, o \LaTeX{} faz um serviço até que bastante decente (com a vantagem de que as figuras não mudam de lugar, ao usarmos outra versão do \LaTeX, como acontece com alguns editores). Ainda assim, algumas vezes ele se equivoca bastante sobre qual seria a melhor posição de uma figura. Nesses casos, caberia ao usuário incluir o pacote \verb|float|, que fornece a opção \verb|H| para posicionamento de figura (usada na figura acima). Essa opção, em termos mais simples, significa ``coloque essa figura aqui e não me torre mais a paciência!''. No caso de \verb|ppgsi.cls|, esse pacote já vem inserido automaticamente, ou seja, você pode usar a opção \verb|H| em suas imagens sem problema algum.
+
+
+\section{Tabelas}
+
+	Tabelas devem ser feitas com o texto explicativo acima, como em:
+
+	\begin{table}[H]
+		\centering
+		\caption{Exemplo de Tabela.}
+		\begin{tabular}{|l|c|}
+			\hline
+			\emph{Dimensão} & Valor\\
+			\hline
+			Altura & 0.843 \\
+			Largura & 0.783 \\
+			\hline
+		\end{tabular}
+		\label{tab:dimensoes}
+	\end{table}
+
+	\noindent que foi construída com o código:
+
+	\begin{verbatim}
+		\begin{table}[H]
+		   \centering
+		   \caption{Exemplo de Tabela.}
+		   \begin{tabular}{|l|c|}
+		      \hline
+		      \emph{Dimensão} & Valor\\
+		      \hline
+		      Altura & 0.843 \\
+		      Largura & 0.783 \\
+		      \hline
+		   \end{tabular}
+		   \label{tab:dimensoes}
+		\end{table}
+	\end{verbatim}
+
+
+\section{Referências}
+\label{sec:bibtex}
+
+	As referências devem estar no formato definido pela APA (American Psychological Association\footnote{http://www.apa.org/}), versão de 24-Jan-88, com a única mudança de que a vírgula entre o nome do autor e o ano, em citações, deve ser suprimida. Embora possam ser inseridas manualmente, via o ambiente \verb|thebibliography|, é recomendável que se crie um arquivo \BibTeX{} (consulte~\citep{Mittelbach2004}), usando então o pacote \verb|ppgsi|\footnote{Esse pacote é, de fato, uma cópia de \emph{apalike}, preparado para lidar com referências tanto em português quanto em inglês.}:
+
+	\begin{verbatim}
+		   \bibliographystyle{ppgsi}
+		   \bibliography{nome_arquivo_bibtex}
+	\end{verbatim}
+
+	\verb|ppgsi| cuida, então, de automaticamente formatar a bibliografia conforme o padrão estabelecido, na língua escolhida para o documento. Além disso, existem alguns programas disponíveis para gerenciamento de arquivos \BibTeX{}, tornando sua criação e manu-tenção bastante fácil. Dentre estes, é recomendável o uso do JabRef\footnote{http://jabref.sourceforge.net/} que, por tratar-se de um pacote Java, roda tanto em Windows quanto em Linux ou Mac.
+	
+	Para fazer citações dentro do texto, pode-se usar o comando \verb|\citep| (em vez de puramente \verb|\cite|), ou qualquer outro comando fornecido pelo pacote \verb|natbib|. Esse pacote é inserido automaticamente pelo arquivo \verb|ppgsi.cls|, não devendo, portanto, ser incluido explicitamente em seu documento. Para uma lista das possíveis maneiras de fazer citações, usando o \verb|natbib|, consulte \url{http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management} e \url{http://merkel.zoneo.net/La}\linebreak\url{tex/natbib.php}.
+	
+	\textbf{Atenção}: uma vez que o documento usa o formato autor-ano para citações, entradas no \BibTeX{} sem o devido ano causarão um erro no pacote \verb|natbib|, mostrando a seguinte mensagem: ``Bibliography not compatible with author-year citations''.
+	
+	Por fim, para listar referências na bibliografia, mas sem que as citações apareçam no texto, basta usar o comando \verb|\nocite{identificador}|. Caso deseje-se incluir todas as entradas dos arquivos \BibTeX{} fornecidos, use o comando \verb|\nocite{*}|. Nas referências desse documento você encontra exemplos de como cada tipo de material bibliográfico deve ser formatado.	
+	
+	\nocite{Back1997}
+	\nocite{Cichocki1993}
+	\nocite{Romero1996}
+	\nocite{Bourdieu1977}
+	\nocite{aveiro2010}
+	\nocite{Romero1993}
+
+
+\section{Conclusão}
+
+	Neste documento foram descritos os passos para escrita, usando-se \LaTeXe{}, de relatórios técnicos para a PPgSI-EACH-USP. Devido ao surgimento natural de dúvidas por parte dos leitores, é recomendado sempre consultar a versão mais atual deste documento, disponível em \textit{http://www.each.usp.br/norton/documentos/instrucoesRT.pdf}.
+
+	
+\section*{Agradecimentos}
+
+	Quero agradecer a Fernando Auil, por ter emprestado o modelo para Trabalho de Conclusão de Curso, por ele desenvolvido para a EACH, para que eu pudesse usar como base na confecção da capa para o modelo de Relatório Técnico. Agradeço também a Renata Madeo, por levantar a questão de citações textuais, que levaram à incorporação do natbib ao modelo.
+	
+	
+\bibliographystyle{ppgsi}
+\bibliography{instrucoesRT}
+
+\appendix
+
+\appsection{Modelo de Documento Completo}
+\label{ap:exemplo}
+
+	Neste Apêndice você encontra um exemplo do esqueleto de um relatório técnico completo. Para usá-lo, basta copiá-lo para um arquivo texto e salvar com a extensão ``.tex''.
+
+\begin{verbatim}
+\documentclass[12pt,a4paper,latin1,eps,brazilian]{ppgsi}
+
+\title{Título do Relatório Técnico}
+
+% Autores, como aparecem na capa do RT
+\coverauthor{Autor 1\\ Autor 2\\ Autor 3}
+
+% Autores do documento
+\author{Autor 1\inst{1}, Autor 2\inst{2}, Autor 3\inst{3}}
+
+\address{Escola de Artes, Ciências e Humanidades --
+    Universidade de São Paulo\\
+    São Paulo -- SP, Brasil
+    \email{autor1@usp.br}
+    \nextinstitute
+    Centro de Pesquisas CP -- Universidade de Lá\\
+    Lá, Brasil
+    \email{autor2@email.com}
+    \nextinstitute
+    Centro de Pesquisas CP -- Universidade de Cá\\
+    Cá, Brasil
+    \email{autor3@email.com}
+}
+
+% Número do RT
+\numero{XXX/XXXX}
+
+% Mês e ano do RT
+\mes{YY}
+\ano{XXXX}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Resumo do RT
+\end{abstract}
+
+\section{Seção 1}
+    Texto da Seção 1
+
+\section{Seção 2}
+    Texto da Seção 2
+
+...
+
+\section{Conclusão}
+    Texto da conclusão
+
+\section*{Agradecimentos}
+    Agradecimentos pertinentes
+
+\section*{Demais Autores}
+    Lista dos nomes, filiação e e-mail dos demais autores
+    do documento, na forma de uma tabela.
+    
+% Início da bibliografia
+\bibliographystyle{ppgsi}
+\bibliography{arquivo_da_bibliografia}
+
+% Apêndices
+\appendix
+
+\appsection{Apêndice 1}
+    Texto do apêndice 1
+
+\appsection{Apêndice 2}
+    Texto do apêndice 2
+
+...
+
+\end{document}
+\end{verbatim}
+
+
+
+\end{document}
