@@ -7,7 +7,7 @@
 % Modified on Feb 2015 by Norton T.Roman: front cover address layout changed
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ppgsi}[2013/02/12 Classe Latex para relatórios técnicos - PPgSI-EACH-USP]
+\ProvidesClass{ppgsi}[2013/02/12 Classe Latex para relatorios tecnicos - PPgSI-E-USP]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
