@@ -50,12 +50,17 @@ Renan Ernesto Silva Pinto\\Vinicius Alves Matias}
       \item Uma arquitetura de \textit{load/store}, onde as operações de processamento de dados operam somente no conteúdo do registrador e não diretamente no conteúdo da memória.
       \item Modo simples de endereçamento, com todos os endereços de \textit{load/store} determinados do conteúdo do registrador e campos da intrução somente.
     \end{itemize}
-    A arquitetura suporta tanto endereçamento quanto aritmética de 64 bits e instruções de tamanho fixo de 32 bits, além de um estado de execução de 64 bits (AArch64) e outro de 32 bits (AArch32), que é completamente compatível com as versões anteriores da arquitetura ARM. 
-    Atualmente, a arquitetura está presente em diversos chips que visam o mínimo consumo de energia. Um exemplo é o Snapdragon 845 (presente em celulares como Asus Zenfone 5Z\footnote{\url{https://www.asus.com/Phone/ZenFone-5Z-ZS620KL/Tech-Specs/} .}, Xiaomi Mi 8\footnote{\url{https://www.mi.com/global/mi8/specs} .} e vários outros\footnote{\url{https://www.techwalls.com/qualcomm-snapdragon-845-smartphones/} .}), cuja microarquitetura é a Cortex-A75.
+    A arquitetura suporta tanto endereçamento quanto aritmética de 64 bits e instruções de tamanho fixo de 32 bits, além de um estado de execução de 64 bits (AArch64) e outro de 32 bits (AArch32), que é completamente compatível com as versões anteriores da arquitetura ARM.
+    Atualmente, a arquitetura vem sendo aprimorada e está em constante evolução. A ARMv8.6-A fornece um ambiente propício para o desenvolvimento de Redes Neurais (NN) para Machine Learning (ML) através de General Matrix Multiply (GEMM) e BFloat 16. Além de todas evoluções presentes nas versões ARMv8.1-A, ARMv8.2-A, ARMv8.3-A, ARMv8.4-A e ARMv8.5-A.
     
+   
+ \section{Uso atual}
+ A arquitetura está presente em diversos chips que visam o mínimo consumo de energia. Um exemplo é o Snapdragon 845 (presente em celulares como Asus Zenfone 5Z\footnote{\url{https://www.asus.com/Phone/ZenFone-5Z-ZS620KL/Tech-Specs/} .}, Xiaomi Mi 8\footnote{\url{https://www.mi.com/global/mi8/specs} .} e vários outros\footnote{\url{https://www.techwalls.com/qualcomm-snapdragon-845-smartphones/} .}), cuja microarquitetura é a Cortex-A75.
+ 
 \bibliographystyle{ppgsi}
 \bibliography{bibitex}
 \nocite{manual}
 \nocite{pressreal}
+\nocite{pressarmv86}
 
 \end{document}
