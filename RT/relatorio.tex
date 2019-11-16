@@ -71,6 +71,16 @@ Para medir o desempenho da arquitetura, o dispositivo usado como referência foi
       
 \end{itemize}
 
+\section{Instruction Set}
+\subsection{Estrutura básica}
+O assembler da arquitetura ARMv8-A reconhece instruções tanto em caixa alta como em caixa baixa. As instruções são linhas compostas por um ou mais rótulos(labels) seguidos do código da instrução, conhecido como OPCODE, um registrador de destino e um ou mais registradores, separados por vírgula, utilizados na operação. Sendo assim, a estrutura das instruções segue o seguinte padrão:
+\\\centerline{\{label:*\} \{opcode \{dest\{, source1\{, source2\{, source3\}\}\}\}\}}
+\\A ordem do registrador de destino e dos registradores fonte são trocadas apenas na instrução store.
+\begin{itemize}
+  \item item
+\end{itemize}
+Teste2.
+
 
 \bibliographystyle{ppgsi}
 \bibliography{bibitex}
