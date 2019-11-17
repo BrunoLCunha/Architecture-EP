@@ -28,7 +28,7 @@ Renan Ernesto Silva Pinto\\Vinicius Alves Matias}
     \nextinstitute
     Escola de Artes, Ciências e Humanidades -- Universidade de São Paulo\\
     São Paulo -- SP, Brazil
-    \email{autor4@email.com}
+    \email{viniciusmatias@usp.br}
 }
 
 \numero{000/2019}
@@ -82,7 +82,38 @@ O assembler da arquitetura ARMv8-A reconhece instruções tanto em caixa alta co
 \end{itemize}
 Teste2.
 
+\section{Detalhes da Arquitetura}
+    \subsection{Tipo de Arquitetura}
+        A arquitetura ARMv8-A extende a arquitetura ARMv7, tendo agora dois estados de execução: 32 bits e 64 bits, mantendo a compatibilidade com a arquitetura predecessora e, portanto, seus fundamentos.
+        A arquitetura ARMv8-A segue uma pipeline, com a quantidade de estágios variando de acordo com o processador em que a arquitetura foi implementada. A ordem de execução também varia de acordo com o processador, como exemplo:
+        \begin{itemize}
+            \item Cortex-A53: Pipeline executa em ordem.
+        \end{itemize}
+        \begin{itemize}
+            \item Cortex-A57: Superescalar, não segue uma ordem específica (Speculative Issue).
+        \end{itemize}
 
+    \subsection{Arquitetura do Processador}
+        Exemplificaremos a implementação da arquitetura ARMv8-A em um processador Cortex-A57, lançado em janeiro de 2015, com uma quantidade de cores que varia de 1 à 4.
+        \begin{itemize}
+            \item Estágios por Pipeline: 15+.
+        \end{itemize}
+        \begin{itemize}
+            \item Velocidade do Clock: 1.5 à 2.5 GHz em 20nm.
+        \end{itemize}
+        \begin{itemize}
+            \item Tamanho do Cache L1 (Instrução): 48 KB (associativo de 3 vias).
+        \end{itemize}
+        \begin{itemize}
+            \item Tamanho do Cache L1 (Dados): 32 KB (associativo bidirecional).
+        \end{itemize}
+        \begin{itemize}
+            \item Tamanho do Cache L2: 512 KB à 2 MB (associativo de 16 vias).
+        \end{itemize}
+        \begin{itemize}
+            \item Taxa de Tranferência máxima de Inteiro: 4.1 à 4.76MIPS/MHz
+        \end{itemize}        
+    
 \bibliographystyle{ppgsi}
 \bibliography{bibitex}
 \nocite{manual}
