@@ -236,378 +236,340 @@ Operações de extração de bit de valores imediatos:
 \subsubsection{Shift (immediate)}
 a
 
-\\\\\textbf{ASR Wd, Wn, #uimm -} Arithmetic Shift Right (immediate): alias for SBFM Wd,Wn,#uimm,#31. 
-\\\\\textbf{ASR Xd, Xn, #uimm -} Arithmetic Shift Right (extended immediate): alias for SBFM Xd,Xn,#uimm,#63. 
-\\\\\textbf{LSL Wd, Wn, #uimm -} Logical Shift Left (immediate): alias for UBFM Wd,Wn,#((32-uimm)\&31),#(31-uimm). 
-\\\\\textbf{LSL Xd, Xn, #uimm -} Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,#((64-uimm)\&63),#(63-uimm) 
-\\\\\textbf{LSR Wd, Wn, #uimm -} Logical Shift Left (immediate): alias for UBFM Wd,Wn,#uimm,#31. 
-\\\\\textbf{LSR Xd, Xn, #uimm -} Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,#uimm,#31. 
-\\\\\textbf{ROR Wd, Wm, #uimm -} Rotate Right (immediate): alias for EXTR Wd,Wm,Wm,#uimm.  
-\\\\\textbf{ROR Xd, Xm, #uimm -} Rotate Right (extended immediate): alias for EXTR Xd,Xm,Xm,#uimm. 
+\\\\\textbf{ASR Wd, Wn, \#uimm -} Arithmetic Shift Right (immediate): alias for SBFM Wd,Wn,\#uimm,\#31. 
+\\\\\textbf{ASR Xd, Xn, \#uimm -} Arithmetic Shift Right (extended immediate): alias for SBFM Xd,Xn,\#uimm,\#63. 
+\\\\\textbf{LSL Wd, Wn, \#uimm -} Logical Shift Left (immediate): alias for UBFM Wd,Wn,\#((32-uimm)\&31),\#(31-uimm). 
+\\\\\textbf{LSL Xd, Xn, \#uimm -} Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,\#((64-uimm)\&63),\#(63-uimm) 
+\\\\\textbf{LSR Wd, Wn, \#uimm -} Logical Shift Left (immediate): alias for UBFM Wd,Wn,\#uimm,\#31. 
+\\\\\textbf{LSR Xd, Xn, \#uimm -} Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,\#uimm,\#31. 
+\\\\\textbf{ROR Wd, Wm, \#uimm -} Rotate Right (immediate): alias for EXTR Wd,Wm,Wm,\#uimm.  
+\\\\\textbf{ROR Xd, Xm, \#uimm -} Rotate Right (extended immediate): alias for EXTR Xd,Xm,Xm,\#uimm. 
 
 
 \subsubsection{Sign/Zero Extend}
-\\\\\textbf{SXT[BH] Wd, Wn -} Signed Extend Byte|Halfword: alias for SBFM Wd,Wn,#0,#7|15. 
-\\\\\textbf{SXT[BHW] Xd, Wn -} Signed Extend Byte|Halfword|Word (extended): alias for SBFM Xd,Xn,#0,#7|15|31. 
-\\\\\textbf{UXT[BH] Wd, Wn -} Unsigned Extend Byte|Halfword: alias for UBFM Wd,Wn,#0,#7|15. 
-\\\\\textbf{UXT[BHW] Xd, Wn -} Unsigned Extend Byte|Halfword|Word (extended): alias for UBFM Xd,Xn,#0,#7|15|31. 
+\\\\\textbf{SXT[BH] Wd, Wn -} Signed Extend Byte\textbar Halfword: alias for SBFM Wd,Wn,\#0,\#7\textbar 15. 
+\\\\\textbf{SXT[BHW] Xd, Wn -} Signed Extend Byte\textbar Halfword\textbar Word (extended): alias for SBFM Xd,Xn,\#0,\#7\textbar 15\textbar 31. 
+\\\\\textbf{UXT[BH] Wd, Wn -} Unsigned Extend Byte\textbar Halfword: alias for UBFM Wd,Wn,\#0,\#7\textbar 15. 
+\\\\\textbf{UXT[BHW] Xd, Wn -} Unsigned Extend Byte\textbar Halfword\textbar Word (extended): alias for UBFM Xd,Xn,\#0,\#7\textbar 15\textbar 31. 
 
 
 \subsubsection{Data Processing (register)}
 a
 
 \subsubsection{Arithmetic (shifted register)}
-\\\\\textbf{ADD Wd, Wn, Wm{, ashift #imm} -} Add (register): Wd = Wn + ashift(Wm, imm).
-\\\\\textbf{ADD Xd, Xn, Xm{, ashift #imm} -} Add (extended register): Xd = Xn + ashift(Xm, imm). 
-\\\\\textbf{ADDS Wd, Wn, Wm{, ashift #imm} -} Add and Set Flags (register): Wd = Wn + ashift(Wm, imm), setting condition flags. 
-\\\\\textbf{ADDS Xd, Xn, Xm{, ashift #imm} -} Add and Set Flags (extended register): Xd = Xn + ashift(Xm, imm), setting condition flags. 
-\\\\\textbf{SUB Wd, Wn, Wm{, ashift #imm} -} Subtract (register): Wd = Wn - ashift(Wm, imm). 
-\\\\\textbf{SUB Xd, Xn, Xm{, ashift #imm} -} Subtract (extended register): Xd = Xn - ashift(Xm, imm). 
-\\\\\textbf{SUBS Wd, Wn, Wm{, ashift #imm} -} Subtract and Set Flags (register): Wd = Wn - ashift(Wm, imm), setting condition flags. 
-\\\\\textbf{SUBS Xd, Xn, Xm{, ashift #imm} -} Subtract and Set Flags (extended register): Xd = Xn - ashift(Xm, imm), setting condition flags. 
-\\\\\textbf{CMN Wn, Wm{, ashift #imm} -} Compare Negative (register): alias for ADDS WZR, Wn, Wm{, ashift #imm}. 
-\\\\\textbf{CMN Xn, Xm{, ashift #imm} -} Compare Negative (extended register): alias for ADDS XZR, Xn, Xm{, ashift #imm}. 
+\\\\\textbf{ADD Wd, Wn, Wm{, ashift \#imm} -} Add (register): Wd = Wn + ashift(Wm, imm).
+\\\\\textbf{ADD Xd, Xn, Xm{, ashift \#imm} -} Add (extended register): Xd = Xn + ashift(Xm, imm). 
+\\\\\textbf{ADDS Wd, Wn, Wm{, ashift \#imm} -} Add and Set Flags (register): Wd = Wn + ashift(Wm, imm), setting condition flags. 
+\\\\\textbf{ADDS Xd, Xn, Xm{, ashift \#imm} -} Add and Set Flags (extended register): Xd = Xn + ashift(Xm, imm), setting condition flags. 
+\\\\\textbf{SUB Wd, Wn, Wm{, ashift \#imm} -} Subtract (register): Wd = Wn - ashift(Wm, imm). 
+\\\\\textbf{SUB Xd, Xn, Xm{, ashift \#imm} -} Subtract (extended register): Xd = Xn - ashift(Xm, imm). 
+\\\\\textbf{SUBS Wd, Wn, Wm{, ashift \#imm} -} Subtract and Set Flags (register): Wd = Wn - ashift(Wm, imm), setting condition flags. 
+\\\\\textbf{SUBS Xd, Xn, Xm{, ashift \#imm} -} Subtract and Set Flags (extended register): Xd = Xn - ashift(Xm, imm), setting condition flags. 
+\\\\\textbf{CMN Wn, Wm{, ashift \#imm} -} Compare Negative (register): alias for ADDS WZR, Wn, Wm{, ashift \#imm}. 
+\\\\\textbf{CMN Xn, Xm{, ashift \#imm} -} Compare Negative (extended register): alias for ADDS XZR, Xn, Xm{, ashift \#imm}. 
 
-\\\\\textbf{CMP Wn, Wm{, ashift #imm} -} Compare (register): alias for SUBS WZR, Wn, Wm{,ashift #imm}. 
+\\\\\textbf{CMP Wn, Wm{, ashift \#imm} -} Compare (register): alias for SUBS WZR, Wn, Wm{,ashift \#imm}. 
 
-\\\\\textbf{CMP Xn, Xm{, ashift #imm} -} Compare (extended register): alias for SUBS XZR, Xn, Xm{, ashift #imm}. 
+\\\\\textbf{CMP Xn, Xm{, ashift \#imm} -} Compare (extended register): alias for SUBS XZR, Xn, Xm{, ashift \#imm}. 
 
-\\\\\textbf{NEG Wd, Wm{, ashift #imm} -} Negate: alias for SUB Wd, WZR, Wm{, ashift #imm}. 
-\\\\\textbf{NEG Xd, Xm{, ashift #imm} -} Negate (extended): alias for SUB Xd, XZR, Xm{, ashift #imm}. 
+\\\\\textbf{NEG Wd, Wm{, ashift \#imm} -} Negate: alias for SUB Wd, WZR, Wm{, ashift \#imm}. 
+\\\\\textbf{NEG Xd, Xm{, ashift \#imm} -} Negate (extended): alias for SUB Xd, XZR, Xm{, ashift \#imm}. 
 
-\\\\\textbf{NEGS Wd, Wm{, ashift #imm} -} Negate and Set Flags: alias for SUBS Wd, WZR, Wm{, ashift #imm}. 
+\\\\\textbf{NEGS Wd, Wm{, ashift \#imm} -} Negate and Set Flags: alias for SUBS Wd, WZR, Wm{, ashift \#imm}. 
 
-\\\\\textbf{NEGS Xd, Xm{, ashift #imm} -} Negate and Set Flags (extended): alias for SUBS Xd, XZR, Xm{, ashift #imm}. 
+\\\\\textbf{NEGS Xd, Xm{, ashift \#imm} -} Negate and Set Flags (extended): alias for SUBS Xd, XZR, Xm{, ashift \#imm}. 
 
 
 
 \subsubsection{Arithmetic (extending register)}
 a
 
-\\\\\textbf{ADD Wd|WSP, Wn|WSP, Wm, extend {#imm} -} Add (register, extending): Wd|WSP = Wn|WSP + LSL(extend(Wm),imm). 
+\\\\\textbf{ADD Wd\textbar WSP, Wn\textbar WSP, Wm, extend {#imm} -} Add (register, extending): Wd\textbar WSP = Wn\textbar WSP + LSL(extend(Wm),imm). 
 
-\\\\\textbf{ADD Xd|SP, Xn|SP, Wm, extend {#imm} -} Add (extended register, extending): Xd|SP = Xn|SP + LSL(extend(Wm),imm). 
+\\\\\textbf{ADD Xd\textbar SP, Xn\textbar SP, Wm, extend {#imm} -} Add (extended register, extending): Xd\textbar SP = Xn\textbar SP + LSL(extend(Wm),imm). 
 
-\\\\\textbf{ADD Xd|SP, Xn|SP, Xm{, UXTX|LSL #imm} -} Add (extended register, extending): Xd|SP = Xn|SP + LSL(Xm,imm). 
+\\\\\textbf{ADD Xd\textbar SP, Xn\textbar SP, Xm{, UXTX\textbar LSL \#imm} -} Add (extended register, extending): Xd\textbar SP = Xn\textbar SP + LSL(Xm,imm). 
 
-\\\\\textbf{ADDS Wd, Wn|WSP, Wm, extend {#imm} -} Add and Set Flags (register, extending): Wd = Wn|WSP + LSL(extend(Wm),imm), setting the
+\\\\\textbf{ADDS Wd, Wn\textbar WSP, Wm, extend {#imm} -} Add and Set Flags (register, extending): Wd = Wn\textbar WSP + LSL(extend(Wm),imm), setting the
 condition flags. 
-\\\\\textbf{ADDS Xd, Xn|SP, Wm, extend {#imm} -} Add and Set Flags (extended register, extending): Xd = Xn|SP + LSL(extend(Wm),imm), setting
+\\\\\textbf{ADDS Xd, Xn\textbar SP, Wm, extend {#imm} -} Add and Set Flags (extended register, extending): Xd = Xn\textbar SP + LSL(extend(Wm),imm), setting
 the condition flags. 
-\\\\\textbf{ADDS Xd, Xn|SP, Xm{, UXTX|LSL #imm} -} Add and Set Flags (extended register, extending): Xd = Xn|SP + LSL(Xm,imm), setting the condition
+\\\\\textbf{ADDS Xd, Xn\textbar SP, Xm{, UXTX\textbar LSL \#imm} -} Add and Set Flags (extended register, extending): Xd = Xn\textbar SP + LSL(Xm,imm), setting the condition
 flags. 
-\\\\\textbf{SUB Wd|WSP, Wn|WSP, Wm, extend {#imm} -} Subtract (register, extending): Wd|WSP = Wn|WSP - LSL(extend(Wm),imm).
+\\\\\textbf{SUB Wd\textbar WSP, Wn\textbar WSP, Wm, extend {#imm} -} Subtract (register, extending): Wd\textbar WSP = Wn\textbar WSP - LSL(extend(Wm),imm).
 
-\\\\\textbf{SUB Xd|SP, Xn|SP, Wm, extend {#imm} -} Subtract (extended register, extending): Xd|SP = Xn|SP - LSL(extend(Wm),imm). 
+\\\\\textbf{SUB Xd\textbar SP, Xn\textbar SP, Wm, extend {#imm} -} Subtract (extended register, extending): Xd\textbar SP = Xn\textbar SP - LSL(extend(Wm),imm). 
 
-\\\\\textbf{SUB Xd|SP, Xn|SP, Xm{, UXTX|LSL #imm} -} Subtract (extended register, extending): Xd|SP = Xn|SP - LSL(Xm,imm). 
+\\\\\textbf{SUB Xd\textbar SP, Xn\textbar SP, Xm{, UXTX\textbar LSL \#imm} -} Subtract (extended register, extending): Xd\textbar SP = Xn\textbar SP - LSL(Xm,imm). 
 
-\\\\\textbf{SUBS Wd, Wn|WSP, Wm, extend {#imm} -} Subtract and Set Flags (register, extending): Wd = Wn|WSP - LSL(extend(Wm),imm), setting the
+\\\\\textbf{SUBS Wd, Wn\textbar WSP, Wm, extend {#imm} -} Subtract and Set Flags (register, extending): Wd = Wn\textbar WSP - LSL(extend(Wm),imm), setting the
 condition flags. 
-\\\\\textbf{SUBS Xd, Xn|SP, Wm, extend {#imm} -} Subtract and Set Flags (extended register, extending): Xd = Xn|SP - LSL(extend(Wm),imm),
+\\\\\textbf{SUBS Xd, Xn\textbar SP, Wm, extend {#imm} -} Subtract and Set Flags (extended register, extending): Xd = Xn\textbar SP - LSL(extend(Wm),imm),
 setting the condition flags. 
-\\\\\textbf{SUBS Xd, Xn|SP, Xm{, UXTX|LSL #imm} -} Subtract and Set Flags (extended register, extending): Xd = Xn|SP - LSL(Xm,imm), setting the
+\\\\\textbf{SUBS Xd, Xn\textbar SP, Xm{, UXTX\textbar LSL \#imm} -} Subtract and Set Flags (extended register, extending): Xd = Xn\textbar SP - LSL(Xm,imm), setting the
 condition flags. 
-\\\\\textbf{CMN Wn|WSP, Wm, extend {#imm} -} Compare Negative (register, extending): alias for ADDS WZR,Wn,Wm,extend {#imm}. 
+\\\\\textbf{CMN Wn\textbar WSP, Wm, extend {#imm} -} Compare Negative (register, extending): alias for ADDS WZR,Wn,Wm,extend {#imm}. 
 
-\\\\\textbf{CMN Xn|SP, Wm, extend {#imm} -} Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Wm,extend {#imm}. 
+\\\\\textbf{CMN Xn\textbar SP, Wm, extend {#imm} -} Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Wm,extend {#imm}. 
 
-\\\\\textbf{CMN Xn|SP, Xm{, UXTX|LSL #imm} -} Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Xm{,UXTX|LSL #imm}. 
+\\\\\textbf{CMN Xn\textbar SP, Xm{, UXTX\textbar LSL \#imm} -} Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Xm{,UXTX\textbar LSL \#imm}. 
 
-\\\\\textbf{CMP Wn|WSP, Wm, extend {#imm} -} Compare (register, extending): alias for SUBS WZR,Wn,Wm,extend {#imm}. 
+\\\\\textbf{CMP Wn\textbar WSP, Wm, extend {#imm} -} Compare (register, extending): alias for SUBS WZR,Wn,Wm,extend {#imm}. 
 
-\\\\\textbf{CMP Xn|SP, Wm, extend {#imm} -} Compare (extended register, extending): alias for SUBS XZR,Xn,Wm,extend {#imm}. 
+\\\\\textbf{CMP Xn\textbar SP, Wm, extend {#imm} -} Compare (extended register, extending): alias for SUBS XZR,Xn,Wm,extend {#imm}. 
 
-\\\\\textbf{CMP Xn|SP, Xm{, UXTX|LSL #imm} -} Compare (extended register, extending): alias for SUBS XZR,Xn,Xm{,UXTX|LSL #imm}. 
+\\\\\textbf{CMP Xn\textbar SP, Xm{, UXTX\textbar LSL \#imm} -} Compare (extended register, extending): alias for SUBS XZR,Xn,Xm{,UXTX\textbar LSL \#imm}. 
 
 
 
 \subsubsection{Logical (shifted register)}
 a
 
-\\\\\textbf{AND Wd, Wn, Wm{, lshift #imm} -} Bitwise AND (register): Wd = Wn AND lshift(Wm, imm). 
+\\\\\textbf{AND Wd, Wn, Wm{, lshift \#imm} -} Bitwise AND (register): Wd = Wn AND lshift(Wm, imm). 
 
-\\\\\textbf{AND Xd, Xn, Xm{, lshift #imm} -} Bitwise AND (extended register): Xd = Xn AND lshift(Xm, imm). 
+\\\\\textbf{AND Xd, Xn, Xm{, lshift \#imm} -} Bitwise AND (extended register): Xd = Xn AND lshift(Xm, imm). 
 
-\\\\\textbf{ANDS Wd, Wn, Wm{, lshift #imm} -} Bitwise AND and Set Flags (register): Wd = Wn AND lshift(Wm, imm), setting N \& Z condition flags
+\\\\\textbf{ANDS Wd, Wn, Wm{, lshift \#imm} -} Bitwise AND and Set Flags (register): Wd = Wn AND lshift(Wm, imm), setting N \& Z condition flags
 based on the result and clearing the C \& V flags. 
-\\\\\textbf{ANDS Xd, Xn, Xm{, lshift #imm} -} Bitwise AND and Set Flags (extended register): Xd = Xn AND lshift(Xm, imm), setting N & Z
-condition flags based on the result and clearing the C & V flags. 
+\\\\\textbf{ANDS Xd, Xn, Xm{, lshift \#imm} -} Bitwise AND and Set Flags (extended register): Xd = Xn AND lshift(Xm, imm), setting N \& Z
+condition flags based on the result and clearing the C \& V flags. 
 
-\\\\\textbf{BIC Wd, Wn, Wm{, lshift #imm} -} Bit Clear (register): Wd = Wn AND NOT(lshift(Wm, imm)). 
+\\\\\textbf{BIC Wd, Wn, Wm{, lshift \#imm} -} Bit Clear (register): Wd = Wn AND NOT(lshift(Wm, imm)). 
 
-\\\\\textbf{BIC Xd, Xn, Xm{, lshift #imm} -} Bit Clear (extended register): Xd = Xn AND NOT(lshift(Xm, imm)). 
-\\\\\textbf{BICS Wd, Wn, Wm{, lshift #imm} -} Bit Clear and Set Flags (register): Wd = Wn AND NOT(lshift(Wm, imm)), setting N & Z condition
-flags based on the result and clearing the C & V flags. 
-\\\\\textbf{BICS Xd, Xn, Xm{, lshift #imm} -} Bit Clear and Set Flags (extended register): Xd = Xn AND NOT(lshift(Xm, imm)), setting N & Z
-condition flags based on the result and clearing the C & V flags. 
-\\\\\textbf{EON Wd, Wn, Wm{, lshift #imm} -} Bitwise exclusive OR NOT (register): Wd = Wn EOR NOT(lshift(Wm, imm)). 
+\\\\\textbf{BIC Xd, Xn, Xm{, lshift \#imm} -} Bit Clear (extended register): Xd = Xn AND NOT(lshift(Xm, imm)). 
+\\\\\textbf{BICS Wd, Wn, Wm{, lshift \#imm} -} Bit Clear and Set Flags (register): Wd = Wn AND NOT(lshift(Wm, imm)), setting N \& Z condition
+flags based on the result and clearing the C \& V flags. 
+\\\\\textbf{BICS Xd, Xn, Xm{, lshift \#imm} -} Bit Clear and Set Flags (extended register): Xd = Xn AND NOT(lshift(Xm, imm)), setting N \& Z
+condition flags based on the result and clearing the C \& V flags. 
+\\\\\textbf{EON Wd, Wn, Wm{, lshift \#imm} -} Bitwise exclusive OR NOT (register): Wd = Wn EOR NOT(lshift(Wm, imm)). 
 
-\\\\\textbf{EON Xd, Xn, Xm{, lshift #imm} -} Bitwise exclusive OR NOT (extended register): Xd = Xn EOR NOT(lshift(Xm, imm)). 
+\\\\\textbf{EON Xd, Xn, Xm{, lshift \#imm} -} Bitwise exclusive OR NOT (extended register): Xd = Xn EOR NOT(lshift(Xm, imm)). 
 
-\\\\\textbf{EOR Wd, Wn, Wm{, lshift #imm} -} Bitwise exclusive OR (register): Wd = Wn EOR lshift(Wm, imm). 
+\\\\\textbf{EOR Wd, Wn, Wm{, lshift \#imm} -} Bitwise exclusive OR (register): Wd = Wn EOR lshift(Wm, imm). 
 
-\\\\\textbf{EOR Xd, Xn, Xm{, lshift #imm} -} Bitwise exclusive OR (extended register): Xd = Xn EOR lshift(Xm, imm). 
+\\\\\textbf{EOR Xd, Xn, Xm{, lshift \#imm} -} Bitwise exclusive OR (extended register): Xd = Xn EOR lshift(Xm, imm). 
 
-\\\\\textbf{ORR Wd, Wn, Wm{, lshift #imm} -} Bitwise inclusive OR (register): Wd = Wn OR lshift(Wm, imm). 
-\\\\\textbf{ORR Xd, Xn, Xm{, lshift #imm} -} Bitwise inclusive OR (extended register): Xd = Xn OR lshift(Xm, imm). 
+\\\\\textbf{ORR Wd, Wn, Wm{, lshift \#imm} -} Bitwise inclusive OR (register): Wd = Wn OR lshift(Wm, imm). 
+\\\\\textbf{ORR Xd, Xn, Xm{, lshift \#imm} -} Bitwise inclusive OR (extended register): Xd = Xn OR lshift(Xm, imm). 
 
-\\\\\textbf{ORN Wd, Wn, Wm{, lshift #imm} -} Bitwise inclusive OR NOT (register): Wd = Wn OR NOT(lshift(Wm, imm)). 
+\\\\\textbf{ORN Wd, Wn, Wm{, lshift \#imm} -} Bitwise inclusive OR NOT (register): Wd = Wn OR NOT(lshift(Wm, imm)). 
 
-\\\\\textbf{ORN Xd, Xn, Xm{, lshift #imm} -} Bitwise inclusive OR NOT (extended register): Xd = Xn OR NOT(lshift(Xm, imm)). 
+\\\\\textbf{ORN Xd, Xn, Xm{, lshift \#imm} -} Bitwise inclusive OR NOT (extended register): Xd = Xn OR NOT(lshift(Xm, imm)). 
 
 \\\\\textbf{MOV Wd, Wm -} Move (register): alias for ORR Wd,WZR,Wm. 
 
 \\\\\textbf{MOV Xd, Xm -} Move (extended register): alias for ORR Xd,XZR,Xm. 
 
-\\\\\textbf{MVN Wd, Wm{, lshift #imm} -} Move NOT (register): alias for ORN Wd,WZR,Wm{,lshift #imm}. 
-\\\\\textbf{MVN Xd, Xm{, lshift #imm} -} Move NOT (extended register): alias for ORN Xd,XZR,Xm{,lshift #imm}. 
+\\\\\textbf{MVN Wd, Wm{, lshift \#imm} -} Move NOT (register): alias for ORN Wd,WZR,Wm{,lshift \#imm}. 
+\\\\\textbf{MVN Xd, Xm{, lshift \#imm} -} Move NOT (extended register): alias for ORN Xd,XZR,Xm{,lshift \#imm}. 
 
-\\\\\textbf{TST Wn, Wm{, lshift #imm} -} Bitwise Test (register): alias for ANDS WZR,Wn,Wm{,lshift #imm}. 
+\\\\\textbf{TST Wn, Wm{, lshift \#imm} -} Bitwise Test (register): alias for ANDS WZR,Wn,Wm{,lshift \#imm}. 
 
-\\\\\textbf{TST Xn, Xm{, lshift #imm} -} Bitwise Test (extended register): alias for ANDS XZR,Xn,Xm{,lshift #imm}. 
+\\\\\textbf{TST Xn, Xm{, lshift \#imm} -} Bitwise Test (extended register): alias for ANDS XZR,Xn,Xm{,lshift \#imm}. 
 
 
 \subsubsection{Variable Shift}
 a
 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
-\\\\\textbf{-} 
+\\\\\textbf{ASRV Wd, Wn, Wm -} Arithmetic Shift Right Variable: Wd = ASR(Wn, Wm \& 0x1f).
+\\\\\textbf{ASRV Xd, Xn, Xm -} Arithmetic Shift Right Variable (extended): Xd = ASR(Xn, Xm \& 0x3f). 
+
+\\\\\textbf{LSLV Wd, Wn, Wm -} Logical Shift Left Variable: Wd = LSL(Wn, Wm \& 0x1f). 
+
+\\\\\textbf{LSLV Xd, Xn, Xm -} Logical Shift Left Variable (extended register): Xd = LSL(Xn, Xm \& 0x3f). 
+
+\\\\\textbf{LSRV Wd, Wn, Wm -} Logical Shift Right Variable: Wd = LSR(Wn, Wm \& 0x1f). 
+
+\\\\\textbf{LSRV Xd, Xn, Xm -} Logical Shift Right Variable (extended): Xd = LSR(Xn, Xm \& 0x3f). 
+
+\\\\\textbf{RORV Wd, Wn, Wm -} Rotate Right Variable: Wd = ROR(Wn, Wm \& 0x1f). 
+
+\\\\\textbf{RORV Xd, Xn, Xm -} Rotate Right Variable (extended): Xd = ROR(Xn, Xm \& 0x3f). 
+
+a
+
+\\\\\textbf{ASR Wd, Wn, Wm -} Arithmetic Shift Right (register): preferred alias for ASRV Wd, Wn, Wm. 
+
+\\\\\textbf{ASR Xd, Xn, Xm -} Arithmetic Shift Right (extended register): preferred alias for ASRV Xd, Xn, Xm. 
+
+\\\\\textbf{LSL Wd, Wn, Wm -} Logical Shift Left (register): preferred alias for LSLV Wd, Wn, Wm. 
+
+\\\\\textbf{LSL Xd, Xn, Xm -} Logical Shift Left (extended register): preferred alias for LSLV Xd, Xn, Xm. 
+
+\\\\\textbf{LSR Wd, Wn, Wm -} Logical Shift Right (register): preferred alias for LSRV Wd, Wn, Wm. 
+
+\\\\\textbf{LSR Xd, Xn, Xm -} Logical Shift Right (extended register): preferred alias for LSRV Xd, Xn, Xm. 
+\\\\\textbf{ROR Wd, Wn, Wm -} Rotate Right (register): preferred alias for RORV Wd, Wn, Wm. 
+
+\\\\\textbf{ROR Xd, Xn, Xm -} Rotate Right (extended register): preferred alias for RORV Xd, Xn, Xm. 
 
 
+\subsubsection{Bit Operations}
+
+\\\\\textbf{CLS Wd, Wm -} Count Leading Sign Bits: sets Wd to the number of consecutive bits following the topmost bit in Wm, that
+are the same as the topmost bit. The count does not include the topmost bit itself, so the result will be in
+the range 0 to 31 inclusive.
+\\\\\textbf{CLS Xd, Xm -} Count Leading Sign Bits (extended): sets Xd to the number of consecutive bits following the topmost bit
+in Xm, that are the same as the topmost bit. The count does not include the topmost bit itself, so the result
+will be in the range 0 to 63 inclusive. 
+\\\\\textbf{CLZ Wd, Wm -} Count Leading Zeros: sets Wd to the number of binary zeros at the most significant end of Wm. The result
+will be in the range 0 to 32 inclusive. 
+\\\\\textbf{CLZ Xd, Xm -} Count Leading Zeros: (extended) sets Xd to the number of binary zeros at the most significant end of Xm.
+The result will be in the range 0 to 64 inclusive. 
+\\\\\textbf{RBIT Wd, Wm -} Reverse Bits: reverses the 32 bits from Wm, writing to Wd. 
+
+\\\\\textbf{RBIT Xd, Xm -} Reverse Bits (extended): reverses the 64 bits from Xm, writing to Xd. 
+
+\\\\\textbf{REV Wd, Wm -} Reverse Bytes: reverses the 4 bytes in Wm, writing to Wd. 
+
+\\\\\textbf{REV Xd, Xm -} Reverse Bytes (extended): reverses 8 bytes in Xm, writing to Xd. 
+
+\\\\\textbf{REV16 Wd, Wm -} Reverse Bytes in Halfwords: reverses the 2 bytes in each 16-bit element of Wm, writing to Wd. 
+
+\\\\\textbf{REV16 Xd, Xm -} Reverse Bytes in Halfwords (extended): reverses the 2 bytes in each 16-bit element of Xm, writing to Xd. 
+
+\\\\\textbf{REV32 Xd, Xm -} Reverse Bytes in Words (extended): reverses the 4 bytes in each 32-bit element of Xm, writing to Xd. 
 
 
+\subsubsection{Conditional Data Processing}
+a
+
+\\\\\textbf{ADC Wd, Wn, Wm -} Add with Carry: Wd = Wn + Wm + C. 
+
+\\\\\textbf{ADC Xd, Xn, Xm -} Add with Carry (extended): Xd = Xn + Xm + C. 
+\\\\\textbf{ADCS Wd, Wn, Wm -} Add with Carry and Set Flags: Wd = Wn + Wm + C, setting the condition flags. 
+
+\\\\\textbf{ADCS Xd, Xn, Xm -} Add with Carry and Set Flags (extended): Xd = Xn + Xm + C, setting the condition flags. 
+
+\\\\\textbf{CSEL Wd, Wn, Wm, cond -} Conditional Select: Wd = if cond then Wn else Wm.
+
+\\\\\textbf{CSEL Xd, Xn, Xm, cond -} Conditional Select (extended): Xd = if cond then Xn else Xm. 
+
+\\\\\textbf{CSINC Wd, Wn, Wm, cond -} Conditional Select Increment: Wd = if cond then Wn else Wm+1. 
+
+\\\\\textbf{CSINC Xd, Xn, Xm, cond -} Conditional Select Increment (extended): Xd = if cond then Xn else Xm+1. 
+
+\\\\\textbf{CSINV Wd, Wn, Wm, cond -} Conditional Select Invert: Wd = if cond then Wn else NOT(Wm). 
+
+\\\\\textbf{CSINV Xd, Xn, Xm, cond -} Conditional Select Invert (extended): Xd = if cond then Xn else NOT(Xm). 
+
+\\\\\textbf{CSNEG Wd, Wn, Wm, cond -} Conditional Select Negate: Wd = if cond then Wn else -Wm. 
+
+\\\\\textbf{CSNEG Xd, Xn, Xm, cond -} Conditional Select Negate (extended): Xd = if cond then Xn else -Xm. 
+
+\\\\\textbf{CSET Wd, cond -} Conditional Set: Wd = if cond then 1 else 0.
+Alias for CSINC Wd,WZR,WZR,invert(cond). 
+\\\\\textbf{CSET Xd, cond -} Conditional Set (extended): Xd = if cond then 1 else 0.
+Alias for CSINC Xd,XZR,XZR,invert(cond)
+\\\\\textbf{CSETM Wd, cond -} Conditional Set Mask: Wd = if cond then -1 else 0.
+Alias for CSINV Wd,WZR,WZR,invert(cond).
+\\\\\textbf{CSETM Xd, cond -} Conditional Set Mask (extended): Xd = if cond then -1 else 0.
+Alias for CSINV Xd,WZR,WZR,invert(cond). 
+\\\\\textbf{CINC Wd, Wn, cond -} Conditional Increment: Wd = if cond then Wn+1 else Wn.
+Alias for CSINC Wd,Wn,Wn,invert(cond).
+\\\\\textbf{CINC Xd, Xn, cond -} Conditional Increment (extended): Xd = if cond then Xn+1 else Xn.
+Alias for CSINC Xd,Xn,Xn,invert(cond). 
+\\\\\textbf{CINV Wd, Wn, cond -} Conditional Invert: Wd = if cond then NOT(Wn) else Wn.
+Alias for CSINV Wd,Wn,Wn,invert(cond).
+\\\\\textbf{CINV Xd, Xn, cond -} Conditional Invert (extended): Xd = if cond then NOT(Xn) else Xn.
+Alias for CSINV Xd,Xn,Xn,invert(cond). 
+\\\\\textbf{CNEG Wd, Wn, cond -} Conditional Negate: Wd = if cond then -Wn else Wn.
+Alias for CSNEG Wd,Wn,Wn,invert(cond).
+\\\\\textbf{CNEG Xd, Xn, cond -} Conditional Negate (extended): Xd = if cond then -Xn else Xn.
+Alias for CSNEG Xd,Xn,Xn,invert(cond). 
+\\\\\textbf{SBC Wd, Wn, Wm -} Subtract with Carry: Wd = Wn - Wm - 1 + C. 
+
+\\\\\textbf{SBC Xd, Xn, Xm -} Subtract with Carry (extended): Xd = Xn - Xm - 1 + C. 
+
+\\\\\textbf{SBCS Wd, Wn, Wm -} Subtract with Carry and Set Flags: Wd = Wn - Wm - 1 + C , setting the condition flags. 
+
+\\\\\textbf{SBCS Xd, Xn, Xm -} Subtract with Carry and Set Flags (extended): Xd = Xn - Xm - 1 + C , setting the condition flags. 
+
+\\\\\textbf{NGC Wd, Wm -} Negate with Carry: Wd = -Wm - 1 + C.
+Alias for SBC Wd,WZR,Wm.
+
+\\\\\textbf{NGC Xd, Xm -} Negate with Carry (extended): Xd = -Xm - 1 + C.
+Alias for SBC Xd,XZR,Xm.
+
+\\\\\textbf{NGCS Wd, Wm -} Negate with Carry and Set Flags: Wd = -Wm - 1 + C, setting the condition flags.
+Alias for SBCS Wd,WZR,Wm.
+
+\\\\\textbf{NGCS Xd, Xm -} Negate with Carry and Set Flags (extended): Xd = -Xm - 1 + C, setting the condition flags.
+Alias for SBCS Xd,XZR,Xm.
 
 
+\subsubsection{Conditional Comparison}
+a
+
+\\\\\textbf{CCMN Wn, Wm, \#uimm4, cond -} Conditional Compare Negative (register):
+NZCV = if cond then CMP(Wn,-Wm) else uimm4. 
+\\\\\textbf{CCMN Xn, Xm, \#uimm4, cond -} Conditional Compare Negative (extended register):
+NZCV = if cond then CMP(Xn,-Xm) else uimm4. 
+\\\\\textbf{CCMN Wn, \#uimm5, \#uimm4, cond -} Conditional Compare Negative (immediate):
+NZCV = if cond then CMP(Wn,-uimm5) else uimm4. 
+\\\\\textbf{CCMN Xn, \#uimm5, \#uimm4, cond -} Conditional Compare Negative (extended immediate):
+NZCV = if cond then CMP(Xn,-uimm5) else uimm4.
+\\\\\textbf{CCMP Wn, Wm, \#uimm4, cond -} Conditional Compare (register):
+NZCV = if cond then CMP(Wn,Wm) else uimm4. 
+
+\\\\\textbf{CCMP Xn, Xm, \#uimm4, cond -} Conditional Compare (extended register):
+NZCV = if cond then CMP(Xn,Xm) else uimm4. 
+\\\\\textbf{CCMP Wn, \#uimm5, \#uimm4, cond -} Conditional Compare (immediate):
+NZCV = if cond then CMP(Wn,uimm5) else uimm4. 
+\\\\\textbf{CCMP Xn, \#uimm5, \#uimm4, cond -} Conditional Compare (extended immediate):
+NZCV = if cond then CMP(Xn,uimm5) else uimm4.
 
 
+\subsection{Integer Multiply / Divide}
+
+\subsubsection{Multiply}
+
+\\\\\textbf{MADD Wd, Wn, Wm, Wa -} Multiply-Add: Wd = Wa + (Wn × Wm). 
+
+\\\\\textbf{MADD Xd, Xn, Xm, Xa -} Multiply-Add (extended): Xd = Xa + (Xn × Xm.) 
+
+\\\\\textbf{MSUB Wd, Wn, Wm, Wa -} Multiply-Subtract: Wd = Wa – (Wn × Wm). 
+
+\\\\\textbf{MSUB Xd, Xn, Xm, Xa -} Multiply-Subtract (extended): Xd = Xa – (Xn × Xm). 
+
+\\\\\textbf{MNEG Wd, Wn, Wm -} Multiply-Negate: Wd = –(Wn × Wm).
+Alias for MSUB Wd, Wn, Wm, WZR. 
+\\\\\textbf{MNEG Xd, Xn, Xm -} Multiply-Negate (extended): Xd = –(Xn × Xm).
+Alias for MSUB Xd, Xn, Xm, XZR. 
+\\\\\textbf{MUL Wd, Wn, Wm -} Multiply: Wd = Wn × Wm.
+Alias for MADD Wd, Wn, Wm, WZR. 
+\\\\\textbf{MUL Xd, Xn, Xm -} Multiply (extended): Xd = Xn × Xm.
+Alias for MADD Xd, Xn, Xm, XZR. 
+\\\\\textbf{SMADDL Xd, Wn, Wm, Xa -} Signed Multiply-Add Long: Xd = Xa + (Wn × Wm), treating source operands as signed. 
+\\\\\textbf{SMSUBL Xd, Wn, Wm, Xa -} Signed Multiply-Subtract Long: Xd = Xa – (Wn × Wm), treating source operands as signed. 
+
+\\\\\textbf{SMNEGL Xd, Wn, Wm -} Signed Multiply-Negate Long: Xd = -(Wn × Wm), treating source operands as signed.
+Alias for SMSUBL Xd, Wn, Wm, XZR.
+\\\\\textbf{SMULL Xd, Wn, Wm -} Signed Multiply Long: Xd = Wn × Wm, treating source operands as signed.
+Alias for SMADDL Xd, Wn, Wm, XZR.
+\\\\\textbf{SMULH Xd, Xn, Xm -} Signed Multiply High: Xd = (Xn × Xm)<127:64>, treating source operands as signed. 
+
+\\\\\textbf{UMADDL Xd, Wn, Wm, Xa -} Unsigned Multiply-Add Long: Xd = Xa + (Wn × Wm), treating source operands as unsigned. 
+
+\\\\\textbf{UMSUBL Xd, Wn, Wm, Xa -} Unsigned Multiply-Subtract Long: Xd = Xa – (Wn × Wm), treating source operands as unsigned. 
+
+\\\\\textbf{UMNEGL Xd, Wn, Wm -} Unsigned Multiply-Negate Long: Xd = -(Wn × Wm), treating source operands as unsigned.
+Alias for UMSUBL Xd, Wn, Wm, XZR.
+\\\\\textbf{UMULL Xd, Wn, Wm -} Unsigned Multiply Long: Xd = Wn × Wm, treating source operands as unsigned.
+Alias for UMADDL Xd, Wn, Wm, XZR
+\\\\\textbf{UMULH Xd, Xn, Xm -} Unsigned Multiply High: Xd = (Xn × Xm)<127:64>, treating source operands as unsigned. 
+
+
+\subsubsection{Divide}
+a
+
+\\\\\textbf{SDIV Wd, Wn, Wm -} Signed Divide: Wd = Wn ÷ Wm, treating source operands as signed. 
+
+\\\\\textbf{SDIV Xd, Xn, Xm -} Signed Divide (extended): Xd = Xn ÷ Xm, treating source operands as signed. 
+
+\\\\\textbf{UDIV Wd, Wn, Wm -} Unsigned Divide: Wd = Wn ÷ Wm, treating source operands as unsigned. 
+
+\\\\\textbf{UDIV Xd, Xn, Xm -} Unsigned Divide (extended): Xd = Xn ÷ Xm, treating source operands as unsigned. 
 
 \section{Detalhes da Arquitetura}
     \subsection{Tipo de Arquitetura}
