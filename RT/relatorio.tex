@@ -73,14 +73,541 @@ Para medir o desempenho da arquitetura, o dispositivo usado como referência foi
 \end{itemize}
 
 \section{Instruction Set}
+
 \subsection{Estrutura básica}
-O assembler da arquitetura ARMv8-A reconhece instruções tanto em caixa alta como em caixa baixa. As instruções são linhas compostas por um ou mais rótulos(labels) seguidos do código da instrução, conhecido como OPCODE, um registrador de destino e um ou mais registradores, separados por vírgula, utilizados na operação. Sendo assim, a estrutura das instruções segue o seguinte padrão:
+O assembler da arquitetura ARMv8-A reconhece instruções tanto em caixa alta como em caixa baixa. As instruções são linhas compostas por um ou mais rótulos(labels) seguidos do nome da operação, um registrador de destino e um ou mais registradores, separados por vírgula, utilizados na operação. Sendo assim, a estrutura das instruções segue o seguinte padrão:
 \\\centerline{\{label:*\} \{opcode \{dest\{, source1\{, source2\{, source3\}\}\}\}\}}
 \\A ordem do registrador de destino e dos registradores fonte são trocadas apenas na instrução store.
+\\Na instrução assembly os registradores por sua vez podem assumir diferentes formatos. A tabela abaixo elenca isso:
+\begin{center}
+\includegraphics[width=9cm]{figuras/RegisterTable.PNG}
+\end{center}
+Assim, as instruções podem tomar as seguintes formas:
+\begin{center}
+\includegraphics[width=15cm]{RT/figuras/RegisterTypesExample.PNG}
+\end{center}
+
+\subsection{Condicionais}
+\begin{center}
+\includegraphics[width=15cm]{figuras/ConditionalIntructionTable.PNG}
+\end{center}
+
+\subsection{Usados frequentemente}
+As seguintes sintaxes são frequentemente usadas:
+\\\\\textbf{Xn -} O operador Xn ou Wn interpreta o registrador 31 como um registrador zero, representado pelos nomes XZR ou WZR respectivamente.
+\\\\\textbf{Xn\textbar SP -} O operador Xn\textbar SP ou Wn\textbar WSP interpreta o registrador 31 como o ponteiro de pilha representado pelos nomes SP ou WSP respectivamente.
+\\\\\textbf{cond -} Uma condição padrão ARM como EQ, NE, CS\textbar HS, CC\textbar LO, MI, PL, VS, VC, HI, LS, GE, LT, GT, LE, AL ou NV com os mesmos significados da arquitetura AArch32.
+\\\\\textbf{invert(cond) -} O inverso de cond, por exemplo, o inverso de GT é LE.
+\\\\\textbf{uimmn -} Um n-bit valor imediato sem sinal.
+\\\\\textbf{simmn -} Um n-bit valor imediato com sinal em forma de complemento de 2 (onde n inclui o bit de sinal).
+\\\\\textbf{label -} Representa uma referência para uma parte do código ou localização.
+\\\\\textbf{addr -} Representa um modo de endereçamento.
+\\\\\textbf{lshift -} Representa um operador de deslocamento realizado ao final de operadores lógicos. Engloba instruções como LSL, LSR, ASR ou ROR, que são seguidas de uma quantidade constante de deslocamento.
+\\\\\textbf{ashift -} Representa um operador de deslocamento realizado ao final de operadores aritiméticos. Engloba instruções como LSL, LSR, ou ASR, que são seguidas de uma quantidade constante e deslocamento.
+
+\subsection{Controle de Fluxo}
+\subsubsection{Branch condicional}
+Operadores utilizados em branch's condicionais:
+\\\\\textbf{B.cond label -} Branch: Condicionalmente salta para label se cond é verdadeiro.
+\\\\\textbf{CBNZ Wn, label -} Compare and Branch Not Zero: Condicionalmente salta para label se Wn não é igual a zero.
+\\\\\textbf{CBNZ Xn, label -} Compare and Branch Not Zero (extended): Condicionalmente salta para label se Xn não é igual a zero.
+\\\\\textbf{CBZ Wn, label -} Compare and Branch Zero: Condicionalmente salta para label se Wn é igual a zero.
+\\\\\textbf{CBZ Xn, label -} Compare and Branch Zero (extended): Condicionalmente salta para label se Xn é igual a zero.
+\\\\\textbf{TBNZ Xn\textbar Wn \#uimm6 label -} Test and Branch Not Zero: condicionalmente salta para label se o número de bits uimn6 no registrador Xn não é igual a zero.
+\\\\\textbf{TBZ Xn\textbar Wn, \#uimm6, label -} Test and Branch Zero: condicionalmente salta para label se o número de bits uimn6 no registrador Xn é igual a zero.
+
+\subsection{Branch não condicional imediato}
+Operadores utilizados em branch's não condicionais imediatos:
+\\\\\textbf{B label -} Branch: incondicionalmente salta para label. 
+\\\\\textbf{BL label -} Branch and Link: incondicionalmente salta para label e escreve o endereço da próxima instrução sequencial no registrador X30.
+
+\subsection{Branch não condicional com registrador}
+Operadores utilizados em branch's não condicionais utilizando o endereço de mémoria em registradores:
+\\\\\textbf{BLR Xm -} Branch and Link Register: incondicionalmente salta para o endereço em Xm e escreve o endereço da próxima instrução sequencial no registrador X30.
+\\\\\textbf{BR Xm -} Branch Register: salta para o endereço em Xm com um lembrete a CPU que isso não é um retorno de subrotina.
+\\\\\textbf{RET {Xm} -} Return: salta para o endereço em Xm com um lembrete a CPU que isso é um retorno de subrotina.
+
+\subsection{Memory Access}
+\subsubsection{Load-Store com registrador único}
+A forma mais geral de load-store, ela suporta uma variedade de modos de endereçamento além dos registradores base Xn ou SP.
+\\\\\textbf{LDR Wt, addr -} Load Register: carrega em Wt uma palavra da memória endereçada por addr.
+\\\\\textbf{LDR Xt, addr -} Load Register (extended): carrega em Xt uma dupla-palavra (doubleword) da memória endereçada por addr.
+\\\\\textbf{LDRB Wt, addr -} Load Byte: carrega em Wt um byte da memória endereçada por addr e preenche os bits restantes com zero.
+\\\\\textbf{LDRSB Wt, addr -} Load Signed Byte: carrega em Wt um byte da memória endereçada por addr e preenche os bits restantes de acordo com o sinal.
+\\\\\textbf{LDRSB Xt, addr -} Load Signed Byte (extended): carrega em Xt um byte da memória endereçada por addr e preenche os bits restantes de acordo com o sinal do byte.
+\\\\\textbf{LDRH Wt, addr -} Load Halfword: carrega em Wt metade de uma palavra (halfword) da memória endereçada por addr e preenche os bits restantes com zero.
+\\\\\textbf{LDRSH Wt, addr -} Load Signed Halfword: carrega em Wt metade de uma palavra (halfword) da memória endereçada por addr e preenche os bits restantes de acordo com o sinal.
+\\\\\textbf{LDRSH Xt, addr -} Load Signed Halfword (extended): carrega em Xt metade de uma palavra (halfword) da memória endereçada por addr e preenche os bits restantes de acordo com o sinal.
+\\\\\textbf{LDRSW Xt, addr -} Load Signed Word (extended): carrega em Xt uma palavra da memória endereçada por addr e preenche os bits restantes de acordo com o sinal.
+\\\\\textbf{STR Wt, addr -} Store Register: armazena uma palavra de Wt no endereço de memória addr.
+\\\\\textbf{STR Xt, addr -} Store Register (extended): armazena uma palavra dupla (doubleword) de Xt no endereço de memória addr.
+\\\\\textbf{STRB Wt, addr -} Store Byte: armazena um byte contido em Wt no endereço de memória addr.
+\\\\\textbf{STRH Wt, addr -} Store Halfword: armazena metade de uma palavra (halfword) contida em Wt no endereço de memória addr.
+
+\subsection{Data Processing (immediate)}
+Os seguintes grupos de instrução são suportados:
 \begin{itemize}
-  \item item
+      \item Aritméticas (immediate)
+      \item Lógicas (immediate)
+      \item Move (immediate)
+      \item Bitfield (operations) 
+      \item Deslocamento (immediate) 
+      \item Extensão de sinal/zero
 \end{itemize}
-Teste2.
+\subsubsection{Arithmetic (immediate)}
+Operações aritméticas que aceitam valores imediatos:
+\\\\\textbf{ADD Wd\textbar WSP, Wn\textbar WSP, \#aimm -} Add (immediate): Wd\textbar WSP = Wn\textbar WSP + aimm.
+\\\\\textbf{ADD Xd\textbar SP, Xn\textbar SP, \#aimm -} Add (extended immediate): Xd\textbar SP = Xn\textbar SP + aimm.
+\\\\\textbf{ADDS Wd, Wn\textbar WSP, \#aimm -} Add and set flags (immediate): Wd = Wn\textbar WSP + aimm, configurando as flags de condição.
+\\\\\textbf{ADDS Xd, Xn\textbar SP, \#aimm -} Add and set flags (extended immediate): Xd = Xn\textbar SP + aimm, configurando as flags de condição.
+\\\\\textbf{SUB Wd\textbar WSP, Wn\textbar WSP, \#aimm -} Subtract (immediate): Wd\textbar WSP = Wn\textbar WSP - aimm.
+\\\\\textbf{SUB Xd\textbar SP, Xn\textbar SP, \#aimm -} Subtract (extended immediate): Xd\textbar SP = Xn\textbar SP - aimm.
+\\\\\textbf{SUBS Wd, Wn\textbar WSP, \#aimm -} Subtract and set flags (immediate): Wd = Wn\textbar WSP - aimm, configurando as flags de condição.
+\\\\\textbf{SUBS Xd, Xn\textbar SP, \#aimm -} Subtract and set flags (extended immediate): Xd = Xn\textbar SP - aimm, configurando as flags de condição.
+\\\\\textbf{CMP Wn\textbar WSP, \#aimm -} Compare (immediate): pseudômino para SUBS WZR,Wn\textbar WSP,\#aimm.
+\\\\\textbf{CMP Xn\textbarSP, \#aimm -} Compare (extended immediate): pseudômino para SUBS XZR,Xn\textbar SP,\#aimm.
+\\\\\textbf{CMN Wn\textbar WSP, \#aimm -} Compare negative (immediate): pseudômino para ADDS WZR,Wn\textbar WSP,\#aimm. 
+\\\\\textbf{CMN Xn\textbar SP, \#aimm -} Compare negative (extended immediate): pseudômino para ADDS XZR,Xn\textbar SP,\#aimm. 
+\\\\\textbf{MOV Wd\textbar WSP, Wn\textbar WSP -} Move (register): pseudômino para ADD Wd\textbar WSP,Wn\textbar WSP,\#0, mas somente quando algum dos registradores é o WSP. Em outros casos a instrução ORR Wd,WZR,Wn é usada.
+\\\\\textbf{MOV Xd\textbar SP, Xn\textbar SP -} Move (extended register): pseudômino para ADD Xd\textbar SP,Xn\textbar SP,\#0, mas somente quando algum dos registradores é o SP. Em outros casos a instrução ORR Xd,XZR,Xn é usada.
+
+
+\subsubsection{Logical (immediate)}
+Operações lógicas que aceitam valores imediatos:
+\\\\\textbf{AND Wd\textbar WSP, Wn, \#bimm32 -} Bitwise AND (immediate): Wd\textbar WSP = Wn AND bimm32.
+\\\\\textbf{AND Xd\textbar SP, Xn, \#bimm64 -} Bitwise AND (extended immediate): Xd\textbar SP = Xn AND bimm64.
+\\\\\textbf{ANDS Wd, Wn, \#bimm32 -} Bitwise AND and Set Flags (immediate): Wd = Wn AND bimm32, atribuindo as flags de condição N e Z baseado no resultado, além de limpar as flags C e V.
+\\\\\textbf{ANDS Xd, Xn, \#bimm64 -} Bitwise AND and Set Flags (extended immediate): Xd = Xn AND bimm64, atribuindo as flags de condição N e Z baseado no resultado, além de limpar as flags C e V.
+\\\\\textbf{EOR Wd\textbar WSP, Wn, \#bimm32 -} Bitwise exclusive OR (immediate): Wd\textbar WSP = Wn EOR bimm32.
+\\\\\textbf{EOR Xd\textbar SP, Xn, \#bimm64 -} Bitwise exclusive OR (extended immediate): Xd\textbar SP = Xn EOR bimm64.
+\\\\\textbf{ORR Wd\textbar WSP, Wn, \#bimm32 -} Bitwise inclusive OR (immediate): Wd\textbar WSP = Wn OR bimm32.
+\\\\\textbf{ORR Xd\textbar SP, Xn, \#bimm64 -} Bitwise inclusive OR (extended immediate): Xd\textbar SP = Xn OR bimm64.
+\\\\\textbf{MOVI Wd, \#bimm32 -} Move bitmask (immediate): pseudômino para ORR Wd,WZR,\#bimm32.
+\\\\\textbf{MOVI Xd, \#bimm64 -} Move bitmask (extended immediate): pseudômino para ORR Xd,XZR,\#bimm64.
+\\\\\textbf{TST Wn, \#bimm32 -} Bitwise test (immediate): pseudômino para ANDS WZR,Wn,\#bimm32.
+\\\\\textbf{TST Xn, \#bimm64 -} Bitwise test (extended immediate): pseudômino para ANDS XZR,Xn,\#bimm64
+
+
+\subsubsection{Move (wide immediate)}
+As seguintes instruções inserem um valor imediato em um registrador destino
+\\\\\textbf{MOVZ Wt, \#uimm16{, LSL \#pos} -} Move with Zero (immediate): Wt = LSL(uimm16, pos).
+\\\\\textbf{MOVZ Xt, \#uimm16{, LSL \#pos} -} Move with Zero (extended immediate): Xt = LSL(uimm16, pos).
+\\\\\textbf{MOVN Wt, \#uimm16{, LSL \#pos} -} Move with NOT (immediate): Wt = NOT(LSL(uimm16, pos)).
+\\\\\textbf{MOVN Xt, \#uimm16{, LSL \#pos} -} Move with NOT (extended immediate): Xt = NOT(LSL(uimm16, pos)).
+\\\\\textbf{MOVK Wt, \#uimm16{, LSL \#pos} -} Move with Keep (immediate): Wt<pos+15:pos> = uimm16.
+\\\\\textbf{MOVK Xt, \#uimm16{, LSL \#pos} -} Move with Keep (extended immediate): Xt<pos+15:pos> = uimm16.
+\\\\\textbf{MOV Wd, \#simm32 -} Uma instrução sintética que gera tanto MOVZ, MOVN, como MOVI. 
+\\\\\textbf{MOV Xd, \#simm64 -} Funciona assim como o MOV porém para carregar registradores Xd com valores de 64-bit.
+
+
+\subsection{Bitfield Operations}
+Operações de bits:
+\\\\\textbf{BFM Wd, Wn, \#r, \#s -} Bitfield Move: se s>=r então Wd<s-r:0> = Wn<s:r>, caso contrário Wd<32+s-r,32-r> = Wn<s:0>. Deixando os outros bits em Wd inalterados.
+\\\\\textbf{BFM Xd, Xn, \#r, \#s -} Bitfield Move: se s>=r então Xd<s-r:0> = Xn<s:r>, caso contrário Xd<64+s-r,64-r> = Xn<s:0>. Deixando os outros bits em Xd inalterados.
+\\\\\textbf{SBFM Wd, Wn, \#r, \#s -} Signed Bitfield Move: se s>=r então Wd<s-r:0> = Wn<s:r>, caso contrário Wd<32+s-r,32-r> = Wn<s:0>.
+atribuindo os bits à esquerda com o valor do bit mais a esquerda e os bits da direita do bitfield de destino com zero.
+\\\\\textbf{SBFM Xd, Xn, \#r, \#s -} Signed Bitfield Move: se s>=r então Xd<s-r:0> = Xn<s:r>, caso contrário Xd<64+s-r,64-r> = Xn<s:0>.
+atribuindo os bits à esquerda com o valor do bit mais a esquerda e os bits da direita do bitfield de destino com zero.
+\\\\\textbf{UBFM Wd, Wn, \#r, \#s -} Unsigned Bitfield Move: se s>=r então Wd<s-r:0> = Wn<s:r>, caso contrário Wd<32+s-r,32-r> = Wn<s:0>.
+Atribuindo zero aos bits a esquerda e a direita do bitfield de destino.
+\\\\\textbf{UBFM Xd, Xn, \#r, \#s -} Unsigned Bitfield Move: se s>=r então Xd<s-r:0> = Xn<s:r>, caso contrário Xd<32+s-r,32-r> = Xn<s:0>.
+Atribuindo zero aos bits a esquerda e a direita do bitfield de destino.
+\\\\As seguintes instruções são pseudônimos mais amigáveis para operações de bit:
+\\\\\textbf{BFI Wd, Wn, \#lsb, \#width -} Bitfield Insert: pseudônimo para BFM Wd,Wn,\#((32-lsb)\&31),\#(width-1).
+\\\\\textbf{BFI Xd, Xn, \#lsb, \#width -} Bitfield Insert (extended): pseudônimo para BFM Xd,Xn,\#((64-lsb)\&63),\#(width-1).
+\\\\\textbf{BFXIL Wd, Wn, \#lsb, \#width -} Bitfield Extract and Insert Low: pseudônimo para BFM Wd,Wn,\#lsb,\#(lsb+width-1).
+\\\\\textbf{BFXIL Xd, Xn, \#lsb, \#width -} Bitfield Extract and Insert Low (extended): pseudônimo para BFM Xd,Xn,\#lsb,\#(lsb+width-1).
+\\\\\textbf{SBFIZ Wd, Wn, \#lsb, \#width -} Signed Bitfield Insert in Zero: pseudônimo para SBFM Wd,Wn,\#((32-lsb)\&31),\#(width-1).
+\\\\\textbf{SBFIZ Xd, Xn, \#lsb, \#width -} Signed Bitfield Insert in Zero (extended): pseudônimo para SBFM Xd,Xn,\#((64-lsb)\&63),\#(width-1).
+\\\\\textbf{SBFX Wd, Wn, \#lsb, \#width -} Signed Bitfield Extract: pseudônimo para SBFM Wd,Wn,\#lsb,\#(lsb+width-1).
+\\\\\textbf{SBFX Xd, Xn, \#lsb, \#width -} Signed Bitfield Extract (extended): pseudônimo para SBFM Xd,Xn,\#lsb,\#(lsb+width-1).
+\\\\\textbf{UBFIZ Wd, Wn, \#lsb, \#width -} Unsigned Bitfield Insert in Zero: pseudônimo para UBFM Wd,Wn,\#((32-lsb)\&31),\#(width-1).
+\\\\\textbf{UBFIZ Xd, Xn, \#lsb, \#width -} Unsigned Bitfield Insert in Zero (extended): pseudônimo para UBFM Xd,Xn,\#((64-lsb)\&63),\#(width-1).
+\\\\\textbf{UBFX Wd, Wn, \#lsb, \#width -} Unsigned Bitfield Extract: pseudônimo para UBFM Wd,Wn,\#lsb,\#(lsb+width-1).
+\\\\\textbf{UBFX Xd, Xn, \#lsb, \#width -} Unsigned Bitfield Extract (extended): pseudônimo para UBFM Xd,Xn,\#lsb,\#(lsb+width-1).
+
+
+\subsubsection{Extract (immediate)}
+Operações de extração de bit de valores imediatos:
+\\\\\textbf{EXTR Wd, Wn, Wm, \#lsb -} Extract: Wd = Wn:Wm<lsb+31,lsb>. O bit na posição lsb deve estar entre 0 e 31.
+\\\\\textbf{EXTR Xd, Xn, Xm, \#lsb -} Extract (extended): Xd = Xn:Xm<lsb+63,lsb>. O bit na posição lsb deve estar entre 0 e 63.
+
+
+\subsubsection{Shift (immediate)}
+a
+
+\\\\\textbf{ASR Wd, Wn, #uimm -} Arithmetic Shift Right (immediate): alias for SBFM Wd,Wn,#uimm,#31. 
+\\\\\textbf{ASR Xd, Xn, #uimm -} Arithmetic Shift Right (extended immediate): alias for SBFM Xd,Xn,#uimm,#63. 
+\\\\\textbf{LSL Wd, Wn, #uimm -} Logical Shift Left (immediate): alias for UBFM Wd,Wn,#((32-uimm)\&31),#(31-uimm). 
+\\\\\textbf{LSL Xd, Xn, #uimm -} Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,#((64-uimm)\&63),#(63-uimm) 
+\\\\\textbf{LSR Wd, Wn, #uimm -} Logical Shift Left (immediate): alias for UBFM Wd,Wn,#uimm,#31. 
+\\\\\textbf{LSR Xd, Xn, #uimm -} Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,#uimm,#31. 
+\\\\\textbf{ROR Wd, Wm, #uimm -} Rotate Right (immediate): alias for EXTR Wd,Wm,Wm,#uimm.  
+\\\\\textbf{ROR Xd, Xm, #uimm -} Rotate Right (extended immediate): alias for EXTR Xd,Xm,Xm,#uimm. 
+
+
+\subsubsection{Sign/Zero Extend}
+\\\\\textbf{SXT[BH] Wd, Wn -} Signed Extend Byte|Halfword: alias for SBFM Wd,Wn,#0,#7|15. 
+\\\\\textbf{SXT[BHW] Xd, Wn -} Signed Extend Byte|Halfword|Word (extended): alias for SBFM Xd,Xn,#0,#7|15|31. 
+\\\\\textbf{UXT[BH] Wd, Wn -} Unsigned Extend Byte|Halfword: alias for UBFM Wd,Wn,#0,#7|15. 
+\\\\\textbf{UXT[BHW] Xd, Wn -} Unsigned Extend Byte|Halfword|Word (extended): alias for UBFM Xd,Xn,#0,#7|15|31. 
+
+
+\subsubsection{Data Processing (register)}
+a
+
+\subsubsection{Arithmetic (shifted register)}
+\\\\\textbf{ADD Wd, Wn, Wm{, ashift #imm} -} Add (register): Wd = Wn + ashift(Wm, imm).
+\\\\\textbf{ADD Xd, Xn, Xm{, ashift #imm} -} Add (extended register): Xd = Xn + ashift(Xm, imm). 
+\\\\\textbf{ADDS Wd, Wn, Wm{, ashift #imm} -} Add and Set Flags (register): Wd = Wn + ashift(Wm, imm), setting condition flags. 
+\\\\\textbf{ADDS Xd, Xn, Xm{, ashift #imm} -} Add and Set Flags (extended register): Xd = Xn + ashift(Xm, imm), setting condition flags. 
+\\\\\textbf{SUB Wd, Wn, Wm{, ashift #imm} -} Subtract (register): Wd = Wn - ashift(Wm, imm). 
+\\\\\textbf{SUB Xd, Xn, Xm{, ashift #imm} -} Subtract (extended register): Xd = Xn - ashift(Xm, imm). 
+\\\\\textbf{SUBS Wd, Wn, Wm{, ashift #imm} -} Subtract and Set Flags (register): Wd = Wn - ashift(Wm, imm), setting condition flags. 
+\\\\\textbf{SUBS Xd, Xn, Xm{, ashift #imm} -} Subtract and Set Flags (extended register): Xd = Xn - ashift(Xm, imm), setting condition flags. 
+\\\\\textbf{CMN Wn, Wm{, ashift #imm} -} Compare Negative (register): alias for ADDS WZR, Wn, Wm{, ashift #imm}. 
+\\\\\textbf{CMN Xn, Xm{, ashift #imm} -} Compare Negative (extended register): alias for ADDS XZR, Xn, Xm{, ashift #imm}. 
+
+\\\\\textbf{CMP Wn, Wm{, ashift #imm} -} Compare (register): alias for SUBS WZR, Wn, Wm{,ashift #imm}. 
+
+\\\\\textbf{CMP Xn, Xm{, ashift #imm} -} Compare (extended register): alias for SUBS XZR, Xn, Xm{, ashift #imm}. 
+
+\\\\\textbf{NEG Wd, Wm{, ashift #imm} -} Negate: alias for SUB Wd, WZR, Wm{, ashift #imm}. 
+\\\\\textbf{NEG Xd, Xm{, ashift #imm} -} Negate (extended): alias for SUB Xd, XZR, Xm{, ashift #imm}. 
+
+\\\\\textbf{NEGS Wd, Wm{, ashift #imm} -} Negate and Set Flags: alias for SUBS Wd, WZR, Wm{, ashift #imm}. 
+
+\\\\\textbf{NEGS Xd, Xm{, ashift #imm} -} Negate and Set Flags (extended): alias for SUBS Xd, XZR, Xm{, ashift #imm}. 
+
+
+
+\subsubsection{Arithmetic (extending register)}
+a
+
+\\\\\textbf{ADD Wd|WSP, Wn|WSP, Wm, extend {#imm} -} Add (register, extending): Wd|WSP = Wn|WSP + LSL(extend(Wm),imm). 
+
+\\\\\textbf{ADD Xd|SP, Xn|SP, Wm, extend {#imm} -} Add (extended register, extending): Xd|SP = Xn|SP + LSL(extend(Wm),imm). 
+
+\\\\\textbf{ADD Xd|SP, Xn|SP, Xm{, UXTX|LSL #imm} -} Add (extended register, extending): Xd|SP = Xn|SP + LSL(Xm,imm). 
+
+\\\\\textbf{ADDS Wd, Wn|WSP, Wm, extend {#imm} -} Add and Set Flags (register, extending): Wd = Wn|WSP + LSL(extend(Wm),imm), setting the
+condition flags. 
+\\\\\textbf{ADDS Xd, Xn|SP, Wm, extend {#imm} -} Add and Set Flags (extended register, extending): Xd = Xn|SP + LSL(extend(Wm),imm), setting
+the condition flags. 
+\\\\\textbf{ADDS Xd, Xn|SP, Xm{, UXTX|LSL #imm} -} Add and Set Flags (extended register, extending): Xd = Xn|SP + LSL(Xm,imm), setting the condition
+flags. 
+\\\\\textbf{SUB Wd|WSP, Wn|WSP, Wm, extend {#imm} -} Subtract (register, extending): Wd|WSP = Wn|WSP - LSL(extend(Wm),imm).
+
+\\\\\textbf{SUB Xd|SP, Xn|SP, Wm, extend {#imm} -} Subtract (extended register, extending): Xd|SP = Xn|SP - LSL(extend(Wm),imm). 
+
+\\\\\textbf{SUB Xd|SP, Xn|SP, Xm{, UXTX|LSL #imm} -} Subtract (extended register, extending): Xd|SP = Xn|SP - LSL(Xm,imm). 
+
+\\\\\textbf{SUBS Wd, Wn|WSP, Wm, extend {#imm} -} Subtract and Set Flags (register, extending): Wd = Wn|WSP - LSL(extend(Wm),imm), setting the
+condition flags. 
+\\\\\textbf{SUBS Xd, Xn|SP, Wm, extend {#imm} -} Subtract and Set Flags (extended register, extending): Xd = Xn|SP - LSL(extend(Wm),imm),
+setting the condition flags. 
+\\\\\textbf{SUBS Xd, Xn|SP, Xm{, UXTX|LSL #imm} -} Subtract and Set Flags (extended register, extending): Xd = Xn|SP - LSL(Xm,imm), setting the
+condition flags. 
+\\\\\textbf{CMN Wn|WSP, Wm, extend {#imm} -} Compare Negative (register, extending): alias for ADDS WZR,Wn,Wm,extend {#imm}. 
+
+\\\\\textbf{CMN Xn|SP, Wm, extend {#imm} -} Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Wm,extend {#imm}. 
+
+\\\\\textbf{CMN Xn|SP, Xm{, UXTX|LSL #imm} -} Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Xm{,UXTX|LSL #imm}. 
+
+\\\\\textbf{CMP Wn|WSP, Wm, extend {#imm} -} Compare (register, extending): alias for SUBS WZR,Wn,Wm,extend {#imm}. 
+
+\\\\\textbf{CMP Xn|SP, Wm, extend {#imm} -} Compare (extended register, extending): alias for SUBS XZR,Xn,Wm,extend {#imm}. 
+
+\\\\\textbf{CMP Xn|SP, Xm{, UXTX|LSL #imm} -} Compare (extended register, extending): alias for SUBS XZR,Xn,Xm{,UXTX|LSL #imm}. 
+
+
+
+\subsubsection{Logical (shifted register)}
+a
+
+\\\\\textbf{AND Wd, Wn, Wm{, lshift #imm} -} Bitwise AND (register): Wd = Wn AND lshift(Wm, imm). 
+
+\\\\\textbf{AND Xd, Xn, Xm{, lshift #imm} -} Bitwise AND (extended register): Xd = Xn AND lshift(Xm, imm). 
+
+\\\\\textbf{ANDS Wd, Wn, Wm{, lshift #imm} -} Bitwise AND and Set Flags (register): Wd = Wn AND lshift(Wm, imm), setting N \& Z condition flags
+based on the result and clearing the C \& V flags. 
+\\\\\textbf{ANDS Xd, Xn, Xm{, lshift #imm} -} Bitwise AND and Set Flags (extended register): Xd = Xn AND lshift(Xm, imm), setting N & Z
+condition flags based on the result and clearing the C & V flags. 
+
+\\\\\textbf{BIC Wd, Wn, Wm{, lshift #imm} -} Bit Clear (register): Wd = Wn AND NOT(lshift(Wm, imm)). 
+
+\\\\\textbf{BIC Xd, Xn, Xm{, lshift #imm} -} Bit Clear (extended register): Xd = Xn AND NOT(lshift(Xm, imm)). 
+\\\\\textbf{BICS Wd, Wn, Wm{, lshift #imm} -} Bit Clear and Set Flags (register): Wd = Wn AND NOT(lshift(Wm, imm)), setting N & Z condition
+flags based on the result and clearing the C & V flags. 
+\\\\\textbf{BICS Xd, Xn, Xm{, lshift #imm} -} Bit Clear and Set Flags (extended register): Xd = Xn AND NOT(lshift(Xm, imm)), setting N & Z
+condition flags based on the result and clearing the C & V flags. 
+\\\\\textbf{EON Wd, Wn, Wm{, lshift #imm} -} Bitwise exclusive OR NOT (register): Wd = Wn EOR NOT(lshift(Wm, imm)). 
+
+\\\\\textbf{EON Xd, Xn, Xm{, lshift #imm} -} Bitwise exclusive OR NOT (extended register): Xd = Xn EOR NOT(lshift(Xm, imm)). 
+
+\\\\\textbf{EOR Wd, Wn, Wm{, lshift #imm} -} Bitwise exclusive OR (register): Wd = Wn EOR lshift(Wm, imm). 
+
+\\\\\textbf{EOR Xd, Xn, Xm{, lshift #imm} -} Bitwise exclusive OR (extended register): Xd = Xn EOR lshift(Xm, imm). 
+
+\\\\\textbf{ORR Wd, Wn, Wm{, lshift #imm} -} Bitwise inclusive OR (register): Wd = Wn OR lshift(Wm, imm). 
+\\\\\textbf{ORR Xd, Xn, Xm{, lshift #imm} -} Bitwise inclusive OR (extended register): Xd = Xn OR lshift(Xm, imm). 
+
+\\\\\textbf{ORN Wd, Wn, Wm{, lshift #imm} -} Bitwise inclusive OR NOT (register): Wd = Wn OR NOT(lshift(Wm, imm)). 
+
+\\\\\textbf{ORN Xd, Xn, Xm{, lshift #imm} -} Bitwise inclusive OR NOT (extended register): Xd = Xn OR NOT(lshift(Xm, imm)). 
+
+\\\\\textbf{MOV Wd, Wm -} Move (register): alias for ORR Wd,WZR,Wm. 
+
+\\\\\textbf{MOV Xd, Xm -} Move (extended register): alias for ORR Xd,XZR,Xm. 
+
+\\\\\textbf{MVN Wd, Wm{, lshift #imm} -} Move NOT (register): alias for ORN Wd,WZR,Wm{,lshift #imm}. 
+\\\\\textbf{MVN Xd, Xm{, lshift #imm} -} Move NOT (extended register): alias for ORN Xd,XZR,Xm{,lshift #imm}. 
+
+\\\\\textbf{TST Wn, Wm{, lshift #imm} -} Bitwise Test (register): alias for ANDS WZR,Wn,Wm{,lshift #imm}. 
+
+\\\\\textbf{TST Xn, Xm{, lshift #imm} -} Bitwise Test (extended register): alias for ANDS XZR,Xn,Xm{,lshift #imm}. 
+
+
+\subsubsection{Variable Shift}
+a
+
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+\\\\\textbf{-} 
+
+
+
+
+
+
+
+
 
 \section{Detalhes da Arquitetura}
     \subsection{Tipo de Arquitetura}
